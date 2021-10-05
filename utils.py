@@ -50,6 +50,10 @@ def playSound(audio,sr):
     ipd.display(ipd.Audio(audio,rate=sr))    
 
 
+    
+    
+### The functions to extract spectograms from audio files was from this famous script https://www.frank-zalkow.de/en/create-audio-spectrograms-with-python.html
+    
 
 def stft(sig, frameSize, overlapFac=0.5, window=np.hanning):
     
