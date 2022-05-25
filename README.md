@@ -7,3 +7,4 @@ https://www.researchgate.net/publication/319151563_Language_Identification_Using
 - Check the notebooks for how to extract spetograms and to train the model.
 - The functions to extract spectograms from audio files was from this famous script https://www.frank-zalkow.de/en/create-audio-spectrograms-with-python.html
 
+- To run put your test files in the folder "test", they should be .wav files, and execute : python.exe run.py 

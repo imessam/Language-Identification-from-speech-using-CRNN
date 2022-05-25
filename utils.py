@@ -4,11 +4,18 @@ import shutil
 import time
 import sklearn
 import librosa
+import scipy.io.wavfile as wav
+import IPython.display as ipd
+from tqdm.auto import tqdm
 from sklearn import preprocessing
 from matplotlib import pyplot as plt
-import scipy.io.wavfile as wav
 from numpy.lib import stride_tricks
-import IPython.display as ipd
+
+classes = ["english","french","chinese","german","italian","spanish"]
+
+
+idx2label = dict(enumerate(iter(classes)))
+label2idx = dict(zip(iter(idx2label.values()),iter(idx2label.keys()))) 
 
 
 
@@ -170,25 +177,25 @@ def extractSpectFromFile(audiopath,  plotpath=None,binsize=2**10, colormap="jet"
 def extractSpectFromFolder(path,outDir,compress=False):
     
     if os.path.isdir(outDir):
-        shutil.rmtree(k)
+        shutil.rmtree(outDir)
         
     os.mkdir(outDir)
     
-    print(f"Extracting from {path}")
+    print(f"\nExtracting spectograms from {path} ....\n")
 
     count = len(os.listdir(path))
     
     f=plt.figure(figsize=(15, 7.5));
     
-    for file in os.listdir(path):
+    for file in tqdm(os.listdir(path)):
         
         audioFile = os.path.join(path,file).replace("\\","/")
         outFile = f"{outDir}/{file}.png"
         extractSpectFromFile(audioFile,plotpath=outFile)
 
-        count -=1
-        if count%100 == 0:
-            print(f"Remaining {count}")
+#         count -=1
+# #         if count%100 == 0:
+# #             print(f"Remaining {count}")
 
     plt.close(f)
     
@@ -196,7 +203,8 @@ def extractSpectFromFolder(path,outDir,compress=False):
         
         shutil.make_archive(outDir, 'zip', outDir)
         shutil.rmtree(outDir)
-        
+    
+    return outDir
     
     
 
